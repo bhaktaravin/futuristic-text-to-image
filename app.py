@@ -32,6 +32,18 @@ def generate_image(prompt, negative_prompt, style_preset, num_steps, guidance_sc
         prompt = f"{prompt}, synthwave, retrowave, purple and pink grid, 80s aesthetics"
     elif style_preset == "Bio-Tech":
         prompt = f"{prompt}, organic technology, biomechanical, hr giger style, sleek white"
+    elif style_preset == "Anime":
+        prompt = f"{prompt}, anime style, studio ghibli, vibrant colors, cel shaded, highly detailed"
+        negative_prompt = f"{negative_prompt}, photorealistic, 3d render"
+    elif style_preset == "Photorealistic":
+        prompt = f"{prompt}, professional photography, 4k, 8k, dslr, highly detailed, realistic texture, cinematic lighting"
+        negative_prompt = f"{negative_prompt}, painting, drawing, illustration, anime, cartoon"
+    elif style_preset == "Fantasy Art":
+        prompt = f"{prompt}, digital painting, dungeons and dragons art, concept art, matte painting, highly detailed"
+    elif style_preset == "Steampunk":
+        prompt = f"{prompt}, steampunk, gears, brass, copper, victorian industrial, intricate detail"
+    elif style_preset == "Pixel Art":
+        prompt = f"{prompt}, pixel art, 8-bit, retro game, low res, dithered"
     
     # Run Base
     image = base(
@@ -78,7 +90,11 @@ with gr.Blocks(theme=theme, title="AI Mission Control") as app:
             negative_prompt = gr.Textbox(label="EXCLUSION PARAMETERS", placeholder="What to avoid...", value="blurry, low quality, ugly, deformed")
             
             with gr.Accordion("ADVANCED TELEMETRY", open=True):
-                style = gr.Radio(["Raw", "Cyberpunk", "Synthwave", "Bio-Tech"], label="AESTHETIC MODULE", value="Cyberpunk")
+                style = gr.Radio(
+                    ["Raw", "Cyberpunk", "Synthwave", "Bio-Tech", "Anime", "Photorealistic", "Fantasy Art", "Steampunk", "Pixel Art"],
+                    label="AESTHETIC MODULE",
+                    value="Cyberpunk"
+                )
                 steps = gr.Slider(minimum=10, maximum=100, value=40, step=1, label="COMPUTE CYCLES (Steps)")
                 guidance = gr.Slider(minimum=1.0, maximum=20.0, value=7.5, step=0.5, label=" adherence FACTOR (Guidance)")
             
